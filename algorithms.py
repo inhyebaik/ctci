@@ -10,8 +10,8 @@ Algorithms:
     Insertion Sort
 """
 
-# O(log N): Binary Search assumes a sorted list 
-def binarysearch(L, target):
+# O(log N)
+def binary_search(L, target):
     """ Returns boolean whether target is in (sorted) list. """
     first = 0 
     last = len(L)-1
@@ -29,32 +29,35 @@ def binarysearch(L, target):
             first = mid + 1
     return found
 
-def bubblesort(alist):
-    if len(alist) < 2:
+# Worst: O(N^2)
+# Avg: O(N^2)
+# Best: Omega(n)
+def bubble_sort(L):
+    if len(L) < 2:
         return
     s = False
     while not s:
         s = True
-        for i in range(len(alist)-1):
-            if alist[i] > alist[i+1]:
+        for i in range(len(L)-1):
+            if L[i] > L[i+1]:
                 s = False
-                alist[i], alist[i+1] = alist[i+1], alist[i]
+                L[i], L[i+1] = L[i+1], L[i]
 
-def quicksort(a_list):
-    if len(a_list) < 2: 
-        return a_list
-    lo = quicksort([x for x in a_list[1:] if x <= a_list[0]])
-    hi = quicksort([x for x in a_list[1:] if x >  a_list[0]])
-    return lo + [a_list[0]] + hi
+def quick_sort(L):
+    if len(L) < 2: 
+        return L
+    lo = quick_sort([x for x in L[1:] if x <= L[0]])
+    hi = quick_sort([x for x in L[1:] if x >  L[0]])
+    return lo + [L[0]] + hi
 
 
-def msort(alist):
-    if len(alist) < 2:
-        return alist
+def msort(L):
+    if len(L) < 2:
+        return L
     r = []
-    mid = len(alist)/2
-    a = msort(alist[:mid])
-    b = msort(alist[mid:])
+    mid = len(L)//2
+    a = msort(L[:mid])
+    b = msort(L[mid:])
     while a and b:
         if a[0] < b[0]:
             r.append(a.pop(0))
@@ -66,13 +69,13 @@ def msort(alist):
         r.extend(a)
     return r
 
-def msort2(alist):
-    if len(alist) < 2:
-        return alist
+def msort2(L):
+    if len(L) < 2:
+        return L
     r = []
-    mid = len(alist)/2
-    a = msort2(alist[:mid])
-    b = msort2(alist[mid:])
+    mid = len(L)//2
+    a = msort2(L[:mid])
+    b = msort2(L[mid:])
     i, j = 0, 0
     while a and b:
         if a[i] > b[j]:
