@@ -34,9 +34,9 @@ class HashTable(object):
 
     def get(self, key):
         index = hash_key(key, self.capacity)
-        container = self.hashmap[index]
-        if container and container[0] == key: 
-            return container[1]
+        bucket = self.hashmap[index]
+        if bucket and bucket[0] == key: 
+            return bucket[1]
         else:
             raise KeyError(key)
 
@@ -45,16 +45,16 @@ class HashTable(object):
 
     def values(self):
         values = []
-        for container in self.hashmap:
-            if container:
+        for bucket in self.hashmap:
+            if bucket:
                 values.append(cointainer[1])
         return values
 
     def items(self):
         items = []
-        for container in self.hashmap:
-            if container:
-                items.append(container)
+        for bucket in self.hashmap:
+            if bucket:
+                items.append(bucket)
         return items
 
     def resize(self):
@@ -64,13 +64,31 @@ class HashTable(object):
 
     def delete(self, key):
         index = hash_key(key, self.capacity)
-        container = self.hashmap[index]
-        if container and container[0] == key:
-            container = [] 
+        bucket = self.hashmap[index]
+        if bucket and bucket[0] == key:
+            bucket = [] 
             self.count -= 1
             self._keys.remove(key)
         else:
             raise KeyError(key)
 
+# You need to concatenate lots of string elements. 
+# Java we use a StringBuilder for this
+# Python solution: Use a list, and join the elements of the list at the end. 
+# This is much more efficient than concatenating strings since strings are 
+# immutable objects, thus if you concatenate a string with another, the result 
+# is a NEW string object (the problem is the same with Java strings).
+def string_builder(*words): 
+    return ''.join(words) # words = tuple of args
 
-def 
+def reverse_in_place(word):
+    letters = list(word) # strings are immutable 
+    for i in range(0, len(word)/2): 
+        letters[i], letters[len(word)-1-i] = letters[len(word)-1-i], letters[i]
+    return ''.join(letters)
+
+
+
+
+
+
