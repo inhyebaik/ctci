@@ -29,10 +29,12 @@ def binary_search(L, target):
             first = mid + 1
     return found
 
-# Worst: O(N^2)
-# Avg: O(N^2)
-# Best: Omega(n)
+
 def bubble_sort(L):
+    """
+    Space: O(1)
+    Time (worst/average, best): O(N^2), Omega(N)
+    """
     if len(L) < 2:
         return
     s = False
@@ -44,6 +46,10 @@ def bubble_sort(L):
                 L[i], L[i+1] = L[i+1], L[i]
 
 def quick_sort(L):
+    """
+    # Space: O(log N)
+    # Time (worst, average): O(N^2), O(N log N)
+    """
     if len(L) < 2: 
         return L
     lo = quick_sort([x for x in L[1:] if x <= L[0]])
@@ -52,6 +58,10 @@ def quick_sort(L):
 
 
 def msort(L):
+    """
+    # Space: O(N)
+    # Time: O(N log N)
+    """
     if len(L) < 2:
         return L
     r = []
