@@ -71,14 +71,14 @@ class HashTable(object):
             self._keys.remove(key)
         else:
             raise KeyError(key)
+ 
 
-# You need to concatenate lots of string elements. 
-# Java we use a StringBuilder for this
-# Python solution: Use a list, and join the elements of the list at the end. 
-# This is much more efficient than concatenating strings since strings are 
-# immutable objects, thus if you concatenate a string with another, the result 
-# is a NEW string object (the problem is the same with Java strings).
 def string_builder(*words): 
+    """
+    This is much more efficient than concatenating strings since strings are 
+    immutable objects, thus if you concatenate a string with another, the result 
+    is a NEW string object (the problem is the same with Java strings).
+    """
     return ''.join(words) # words = tuple of args
 
 def reverse_in_place(word):
@@ -88,6 +88,124 @@ def reverse_in_place(word):
     return ''.join(letters)
 
 
+# Interview Questions 
+# 1.1 
+def is_unique(string):
+    """ 
+    Check if string has all distinct characters, not using other data 
+    structures
+    """
+    for s in string: 
+        if string.count(s) > 1:
+            return False
+    return True
+
+# 1.2 
+def is_permutation(a, b):
+    """ Check if string a is a permutation of string b """
+    alist = permutation(a)
+    return b in alist
+
+def permutation(a):
+    """ Return list of permutations of string a """
+    if len(a) < 2:
+        return [a]
+    result = []
+    for i in range(len(a)):
+        part = a[i:] + a[i+1]
+        for m in permutation(part):
+            result.append(a[i:i+1]+m)
+    return result
+
+# 1.3
+def urlify(s, l):
+    """ 
+    Replace spaces in given string (with length l) with '%20' 
+    Input:  "Mr John Smith      ", 13
+    Output: "Mr%20John%20Smith"
+    """
+    h = s.split()
+    return '%20'.join(h)
+
+
+# 1.4
+def palindrome_permutation(string):
+    """
+    Check if a string is permutation of a palindrome
+    input: 'Tact Coa'
+    Output: True (permutations: 'taco cat', 'atco cta', etc.)
+    """
+    counts = {}
+    odds = 0
+    # remove white space and make all chars lowercase
+    string = ''.join(string.lower().split())
+    # track character counts
+    for s in string:
+        if s is not ' ':
+            counts[s] = string.count(s)
+    # track number of even-count letters and odd-count letters
+    for s in counts.keys():
+        if counts[s] % 2 != 0:
+            odds += 1
+    if odds > 1:  # too many odds, can't be a palindrome
+        return False
+    elif odds == 0 and len(string) % 2 == 0: # if no odds, the length has to be even
+        return True
+    elif odds == 1 and len(string) % 2 != 0: # if odds = 1, the length has to be odd
+        return True
+    else:
+        return False
+
+# 1.5 
+def one_away(s1, s2):
+    """
+    Check if string a is one edit away (insert, delete, or replace a character) 
+    from string b --> order matters
+    """
+    a = list(s1)
+    b = list(s2)
+    if len(a) + 1 == len(b): # check for insertion
+        if len(b) == len(set(b)): # no duplicates 
+            diff = set(b).difference(set(a)).pop()
+            index = b.index(diff)
+            del b[index]
+            if a == b:
+                return True
+        else:
+            for l in b:
+                if b.count(l) > 1:
+                    index = b.index(l)
+                    rindex = s2.rindex(l)
+                    if a[index] == b[index]: # use rindex
+                        del b[rindex]
+                    elif a[rindex] == b[rindex]: # use index
+                        del b[index]
+                    if a == b: 
+                        return True
+    elif len(a) - 1 == len(b) or len(a) == len(b): # check for deletion and replacement
+        if len(a) == len(set(a)): # no duplicates; automatic for replacement
+            diff = set(a).difference(set(b)).pop()
+            index = a.index(diff)
+            b.insert(index, diff)
+            if a == b:
+                return True
+        else: # there are duplicates! cat vs. catt; cat vs. ctat
+            for l in a:
+                if a.count(l) == 2:
+                    index = a.index(l)
+                    rindex = s1.rindex(l) # rindex works on strings but not lists
+                    print index, rindex
+                    print a[index], b[index]
+                    if a[index] == b[index]: # use rindex
+                        del a[rindex]
+                    elif a[rindex] == b[rindex]: # use index
+                        del a[index]
+                    if a == b: 
+                        return True
+    else:
+        return False
+
+print one_away('caat', 'cat')
 
 
 
