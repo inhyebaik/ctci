@@ -205,7 +205,57 @@ def one_away(s1, s2):
     else:
         return False
 
-print one_away('caat', 'cat')
+# print one_away('caat', 'cat')
+
+# 1.6 O(N)
+def compress_string(s):
+    """ 
+    Input: 'aabccccaaa' (only upper and lower case letters)
+    Output: 'a2b1c4a3'
+    If ouput is NOT smaller than original, then return original string.
+    Every letter will take 2 spots in output.
+    """ 
+    compressed = []
+    count = 0
+    for i in range(len(s)):
+        if s[i] != s[i-1] and i != 0:
+            compressed.append(s[i-1] + str(count))
+            count = 0
+        count += 1
+    # add last repeated character
+    compressed.append(string[-1] + str(counter))
+    return min(s, ''.join(compressed), key=len)
+
+# 1.7 O(N^2)
+def rotate_matrix(matrix):
+    """Return square matrix rotated 90 deg. in place."""
+    n = len(matrix)
+    for layer in range(n//2):
+        first = layer
+        last = n - layer - 1
+        for i in range(first, last):
+            # save top
+            top = matrix[layer][i]
+            
+            # left to top
+            matrix[layer][i] = matrix[-i-1][layer]
+
+            # bottom to left
+            matrix[-i-1][layer] = matrix[-layer-1][-i-1]
+
+            # right to bottom
+            matrix[-layer-1][-i-1] = matrix[i][-layer-1]
+
+            # top to right
+            matrix[i][-layer-1] = top
+
+
+matrix = [  [1, 2, 3, 4, 5],
+            [6, 7, 8, 9, 10],
+            [11, 12, 13, 14, 15],
+            [16, 17, 18, 19, 20],
+            [21, 22, 23, 24, 25]
+        ]
 
 
 
