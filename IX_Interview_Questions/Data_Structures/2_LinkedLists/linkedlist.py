@@ -51,6 +51,14 @@ class LinkedList(object):
             self.add(randint(min, max))
         return self
 
+    def __len__(self):
+        l = 0
+        c = self.head 
+        while c:
+            l += 1
+            c = c.next
+        return l
+
 
 
 
