@@ -66,23 +66,6 @@ class Tree(object):
     def find_in_tree_BFS(self, value):
         return self.root.find_BFS(value)
 
-class BinarySearchNode(object):
-    def __init__(self, value, lc=None, rc=None):
-        self.value = value
-        self.lc = lc # left child
-        self.rc = rc # right child
 
-    def __rep__(self):
-        return "<BinaryNode {}>".format(self.value)
-
-    def find(self, target):
-        curr = self
-        while curr:
-            if curr.value == value:
-                return curr
-            elif curr.value > target:
-                curr = curr.lc 
-            elif curr.value < target:
-                curr = curr.rc
 
 
