@@ -53,7 +53,7 @@ def quick_sort(L):
     if len(L) < 2: 
         return L
     lo = quick_sort([x for x in L[1:] if x <= L[0]])
-    hi = quick_sort([x for x in L[1:] if x >  L[0]])
+    hi = quick_sort([x for x in L[1:] if x > L[0]])
     return lo + [L[0]] + hi
 
 
