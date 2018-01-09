@@ -16,7 +16,41 @@
 # 3) PERFECT: full and complete! Left and right children all there or none at all! 
 # Perfect binary trees have exactly ((2^k) - 1) nodes (k = # levels)
 
-class BinarySearchNode(object):
+class TreeNode(object):
+    def __init__(self, value, left=None, right=None, parent=None):
+        self.value = value
+        self.leftChild = left
+        self.rightChild = right
+        self.parent = parent
+
+    def hasLeftChild(self):
+        return self.left
+
+    def hasRightChild(self):
+        return self.right 
+
+    def isLeftChild(self):
+        return self.parent and self.parent.leftChild is self
+
+    def isRightChild(self):
+        return self.parent and self.parent.rightChild is self
+
+    def isRoot(self):
+        return not self.parent
+
+    def isLeaf(self):
+        """ isChild? """
+        return not (self.hasLeftChild or self.hasRightChild)
+
+    def anyChild(self):
+        """ Returns node's any child; False if no children """
+        return self.leftChild or self.rightChild
+
+    def bothChildren(self):
+        """ Returns both children if it has 2. """
+        return self.leftChild and self.rightChild
+
+class BinaryTreeNode(object):
     def __init__(self, value, left=None, right=None):
         self.value = value
         self.left = left # left child
@@ -25,42 +59,83 @@ class BinarySearchNode(object):
     def __rep__(self):
         return "<BinaryNode {}>".format(self.value)
 
-    def find(self, target):
-        curr = self
-        while curr:
-            if curr.value == value:
-                return curr
-            elif curr.value > target:
-                curr = curr.left 
-            elif curr.value < target:
-                curr = curr.right
 
-    # Binary Tree Traversals: in-, pre-, post-order
-    # 'visit' = print
-    def in_order_traversal(node):
+class BinarySearchTree(object):
+    def __init__(self):
+        self.root = None 
+        self.size = 0
+
+    def length(self):
+        return self.size 
+
+    def __len__(self):
+        return self.size 
+
+    def __iter__(self):
+        return self.root.__iter__()
+
+    def __repr__(self):
+        return "<BinaryTree root={}>".format(self.root)
+
+    # Binary Tree Traversals
+    def in_order_traversal(self):
         """Visit in ascending order (left, current, then right branches)."""
+        node = self.root
         if node:
             in_order_traversal(node.left)
             print node
             in_order_traversal(node.right)
 
-    def pre_order_traversal(node):
+    def pre_order_traversal(self):
         """Visit current before current children. Root is always first node visited."""
+        node = self.root
         if node:
             print node 
             pre_order_traversal(node.left)
             pre_order_traversal(node.right)
 
-    def post_order_traversal(node):
+    def post_order_traversal(self):
         """ Visit current AFTER visiting its children. Root is visited last. """
+        node = self.root
         if node:
             post_order_traversal(node.left)
             post_order_traversal(node.right)
             print node
 
+# BST
+    def search(self, target):
+        """ for BSTs """
+        current = self.root
+
+        while current:
+            if current.value == target:
+                return current
+            elif target < current.value:
+                current = current.left
+            elif target > current.value:
+                current = current.right
+
+
 # Binary Heaps (Min-heaps and Max-heaps)
-# Min-heap: a complete binary tree (that is, totally filled other than the 
-    # rightmost elements on the last level) where each node is smaller than its 
-    # children. The root, therefore, is the minimum element in the tree.
+# Min-heap:
+# 1) COMPLETE binary tree (that is, totally filled other than the rightmost elements on the last level)
+# 2) SMALLER values on TOP levels; LARGE numbers on LEAF levels
+
+# Inserting into a min-heap
+# 1) We always insert at the bottom --> rightmost. (Again, it's a "COMPLETE" BT)
+# 2) "Fix" tree by swapping new element with parent -> bubble up smaller 
+# 3) O(log N)
+    def insert_min_heap(self, value):
+        # 1) Locate proper location
+        if not self.root:
+            self.root = BinaryTreeNode(value)
+
+    def delete_BST(self, value):
+        # 1) first find node to delete by searching tree
+        if self.size 
+        # 2) 
+        
+
+
 
 
