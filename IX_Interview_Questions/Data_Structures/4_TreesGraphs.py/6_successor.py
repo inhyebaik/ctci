@@ -5,32 +5,37 @@ class Node(object):
         self.right = right
         self.parent = parent
 
+
     def is_leaf(self):
-        return not self.left and not self.right
+        return not self.left and not self.right and self.parent
 
-    def has_any_children(self):
-        return self.left or self.right
+    def is_root(self):
+        return self.parent and self.has_any_children
 
-    def has_both_children(self):
-        return self.left and self.right
-
-    def find_successor(self):
+    def find_successor(self, node):
         
-        if self.is_leaf:
+        if node.is_leaf:
             return None
 
-        if self.right:
-            succ = self.find_min(self.right)
-            return succ
+        # if it has a right subtree, find minimum value in right subtree
+        if node.right:
+            return self.find_min(node)
+        else:
+            # if there is no right subtree, then succ is one of the ancestors.
+            # travel up using the parent pointer 
+            # until you hit a node that is a left child
+            p = node.parent
+            while p:
+                if node is not p.right:
+                    break
+                node = p
+                p = p.parent
+            return p 
+ 
 
-        if self.left:
-            
-
-
-    def find_min(self):
-        curr = self
-        while curr:
-            if self.left:
-                curr = self.left
+    def find_min(self, node):
+        curr = node
+        while curr.left:
+            curr = curr.left
         return curr
 
