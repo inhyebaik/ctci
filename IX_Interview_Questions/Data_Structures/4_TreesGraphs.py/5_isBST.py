@@ -24,7 +24,7 @@ def is_valid_BST(root):
 
 def is_valid_BST_rec(node, mini, maxi):
 
-    # an empty tree is a valid BST 
+    # True if an empty tree (empty trees are BSTs)
     if node is None:
         return True
 
@@ -42,3 +42,5 @@ root.left = Node(2)
 root.right = Node(5)
 root.left.left = Node(1)
 root.left.right = Node(3)
+
+print is_valid_BST(root)
