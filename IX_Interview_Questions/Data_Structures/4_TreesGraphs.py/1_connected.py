@@ -1,4 +1,6 @@
-class Node(object):
+
+
+class GraphNode(object):
     def __init__(self, value, adjacent=None): 
         self.value = value
         # in Graphs, adjacent collections must be a set. We want uniques!
@@ -27,33 +29,15 @@ class Graph(object):
         node1.adjacent.add(node2)
         node2.adjacent.add(node1)
 
-    # BFS uses a QUEUE in graphs. NOT recursive.
-    def are_connected_BFS(self, node1, node2):
-        """ BFS with Queue, aka LinkedList """
-        to_visit = Queue() 
-        to_visit.enqueue(node1) # to_visit = [node1]
-        seen = set() # avoid seeing same nodes again 
-        seen.add(node1)
-
-        while not to_visit.is_empty(): # while to_visit
-            curr = to_visit.dequeue() # curr = to_visit.pop(0)
-            if curr is node2:
-                return True
-            else:
-                for a in curr.adjacent - seen:
-                    to_visit.enqueue(a) # to_visit.append(a)
-                    seen.add(a)
-        return False
-
-    def are_connected_DFS(self, node1, node2):
-        """ DFS with Stack. """
-        to_visit = [node1] # Stack
-        seen = set() # avoid seeing same people again
-        seen.add(node1)
+    def connected_DFS(self, node1, node2):
+        """ Checks if there's a route between 2 nodes. """
+        to_visit = [node1]
+        seen = set()
 
         while to_visit:
             curr = to_visit.pop()
-            if curr is node2:
+            seen.add(curr)
+            if curr == node2:
                 return True
             else:
                 for a in curr.adjacent - seen:
@@ -61,15 +45,40 @@ class Graph(object):
                     seen.add(a)
         return False
 
-    def are_connected_recursive_DFS(self, node1, node2, seen=None):
-        """ Recursive DFS """
+    def connected_BFS(self, node1, node2):
+        """ BFS queue """
+        to_visit = [node1]
+        seen = set()
+
+        while to_visit:
+            curr = to_visit.pop(0)
+            seen.add(curr)
+            if curr == node2:
+                return True
+            else:
+                for a in curr.adjacent - seen:
+                    to_visit.append(a)
+                    seen.add(a)
+
+        return False
+
+
+    def connected_recursive(self, node1, node2, seen=None):
+        if node1 == node2:
+            return True
+
         if not seen:
             seen = set()
-        if node1 is node2:
-            return True
-        seen.add(node1) # keep track that we've visited here
+        seen.add(node1)
+
         for a in node1.adjacent - seen:
-            if self.are_connected_recursive(a, node2, seen):
+            if self.connected_recursive(a, node2, seen=seen):
                 return True
         return False
+
+
+
+
+
+
 
