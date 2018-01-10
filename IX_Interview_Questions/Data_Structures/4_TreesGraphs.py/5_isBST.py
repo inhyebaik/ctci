@@ -10,21 +10,35 @@
 # Both the left and right subtrees must also be binary search trees.
 #
 
-# Definition for a  binary tree node
-class TreeNode:
+class Node:
     def __init__(self, value):
-        self.val = value
+        self.value = value
         self.left = None
         self.right = None
 
-def is_valid_BST(root):
-    return is_valid_BST(root, float("-inf"), float('inf'))
+MIN = -99999999999
+MAX = 999999999999
 
-def is_valid_BST_rec(root, low, high):
-    if not root:
+def is_valid_BST(root):
+    return is_valid_BST_rec(root, MIN, MAX)
+
+def is_valid_BST_rec(node, mini, maxi):
+
+    # an empty tree is a valid BST 
+    if node is None:
         return True
 
-    return low < root.val and root.val < high \
-        and is_valid_BST_rec(root.left, low, root.val) \
-        and is_valid_BST_rec(root.right, root.val, high)
+    # False if node violates min/max constraint
+    if node.value < mini or node.value > maxi:
+        return False
 
+    # Else, check subtrees recursively, tightening min or max constraint
+    return  ( is_valid_BST_rec(node.left, mini, node.value-1) and \
+              is_valid_BST_rec(node.right, node.value+1, maxi) ) 
+
+# Test
+root = Node(4)
+root.left = Node(2)
+root.right = Node(5)
+root.left.left = Node(1)
+root.left.right = Node(3)

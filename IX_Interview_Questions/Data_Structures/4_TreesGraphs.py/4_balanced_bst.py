@@ -16,6 +16,11 @@ class TreeNode:
 def is_balanced(root):
     return check_height(root) != -1
 
+def get_height(root):
+        if root is None:
+            return 0
+        return max(get_height(root.left), get_height(root.right))+1
+
 def check_height(node):
     if node is None:
         return 0
