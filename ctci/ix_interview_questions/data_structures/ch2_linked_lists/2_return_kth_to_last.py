@@ -46,20 +46,22 @@ class LinkedList(object):
 
 def return_kth_to_last(ll, k):
     if ll.head is None:
-        return 
-
-    if k == 1:
-        return ll.tail
-
+        return self
+        
     runner = current = ll.head
+    # set runner so that curr is k nodes behind
     for i in range(k):
-        runner = runner.next # set runner to be k nodes ahead of current
+        runner = runner.next
 
-    while runner:
+    # traverse until runner is at the tail
+    # current will be k away from the tail 
+    while runner.next:
         current = current.next
         runner = runner.next
 
-    return current
+    # remove kth node (current.next is kth)
+    current.next = current.next.next
+    return self
 
 ll = LinkedList([1,2,3,4,5,6])
 print return_kth_to_last(ll, 2)
