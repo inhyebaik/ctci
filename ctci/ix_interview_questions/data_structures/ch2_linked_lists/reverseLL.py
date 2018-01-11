@@ -22,16 +22,6 @@ def reverse(head):
         curr = next # next node we look at is next we saved (since we lost the pointer)
     return last
 
-def reverse2(head):
-    new_head = None
-    while head:
-        temp = head
-        head = temp.next
-        temp.next = new_head
-        new_head = temp
-    return new_head
-
-
 # iterative solution, pass in LL as argument
 def reverse(LL):
     curr = LL.head
