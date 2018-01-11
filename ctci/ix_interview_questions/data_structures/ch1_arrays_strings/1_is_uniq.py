@@ -1,4 +1,5 @@
-# O(N)
+# O(N) 
+
 def is_uniq(string):
     # Assuming ASCII characters
     if len(string) > 128:
