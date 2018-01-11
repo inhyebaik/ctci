@@ -54,25 +54,31 @@ class LinkedList(object):
         return self
 
 
+# O(N)
+# Space: O(N)
 def remove_dups(ll):
     if ll.head is None:
-        return 
-
-    current = ll.head
-    seen = set([current.value])
-    
-    while current:
-        if current.next.value not in seen:
-            seen.add(current.next.value)
-            current = current.next
-        elif current.next.value in seen and current.next == ll.tail:
-            current.next = None
-            ll.tail = current
+        return ll
+    curr = ll.head
+    seen = set([curr.value])
+    while curr and curr.next:
+        
+        if curr.next.value in seen:
+            if curr.next == ll.tail:
+                curr.next = None
+                ll.tail = curr
+                return ll 
+            curr.next = curr.next.next
         else:
-            current.next = current.next.next
+            seen.add(curr.value)
+
+        curr = curr.next
+   
     return ll 
 
 
+# O(N^2)
+# Space: O(1)
 def remove_dups_no_temp(ll):
     if ll.head is None:
         return
