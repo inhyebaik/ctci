@@ -9,5 +9,5 @@ Input: "Mr John Smith       " 13
 Output: "Mr%20John%20Smith" 
 """
 
-def urlify(s):
+def urlify_new_s(s):
     return "%20".join(s.split())
