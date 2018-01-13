@@ -2,7 +2,12 @@
 from linkedlist import LinkedList, Node
 
 def length(ll):
-
+    length = 0
+    curr = ll.head
+    while curr:
+        length += 1
+        curr = curr.next
+    return length
 
 def intersection(ll1, ll2):
     """ Check if 2 singly LLs intersect """
