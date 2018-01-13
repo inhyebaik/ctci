@@ -20,5 +20,16 @@ def clear_bits_0_to_i(num, i):
     mask = -1 << (i + 1)
     return num and mask
 
-def update_bit(num, i):
-    
+def update_bit(num, i, value):
+    """ Set ith bit to value. """
+    if value == 0:
+        clear_bit(num, i)
+    else:
+        set_bit(num, i)
+
+def update_bit2(num, i, value):
+    """ Set ith bit to value. """
+    # clear ith bit with mask
+    mask = ~(1 << i)
+    # set ith bit with OR
+    return (num & mask) | (value << i)
