@@ -3,10 +3,11 @@ import unittest
 # in as a double, print the binary representation. If the number cannot be represented 
 # accurately in binary with at most 32 characters, print "ERROR:'
 
-
+# O(32) 
 def dec_to_bin_string(f):
     bin_string = ["."]
-    while f:
+
+    while f and len(bin_string) < 33:
         # take ones place (1 or 0 when multiplying a float by 2) as an integer
         bit = int( (f*2) // 1 ) 
 
@@ -22,11 +23,13 @@ def dec_to_bin_string(f):
         print "".join(bin_string)
         return "".join(bin_string)
 
+
 class Tests(unittest.TestCase):
     def test_dec_to_bin_string(self):
         f = dec_to_bin_string(0.625)
         answer = '.101'
         self.assertEqual(f, answer)
+
 
 if __name__ == '__main__':
     unittest.main()
